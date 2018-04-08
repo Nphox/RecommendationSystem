@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IGameSorter.cs" />
     <Compile Include="IRecommendationProvider.cs" />
     <Compile Include="ISimilarityCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
