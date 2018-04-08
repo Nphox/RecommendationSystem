@@ -11,7 +11,25 @@ namespace RecommendationSystem.BL
     {
         public double CalculateSimilarity(Game checkGame, Game templateGame)
         {
-            throw new NotImplementedException();
+            bool checkAgeCategory = true;
+
+            double coefficientOfSimilarity = 0;
+
+            if (checkGame.GetAgeCategory() > templateGame.GetAgeCategory())
+            {
+                checkAgeCategory = false;
+            }
+
+            coefficientOfSimilarity += checkGame.GetAvgGameTimeInMinutes() / Math.Abs(checkGame.GetAvgGameTimeInMinutes() - templateGame.GetAvgGameTimeInMinutes());
+
+            coefficientOfSimilarity += checkGame.GetDifficulty() / Math.Abs(checkGame.GetDifficulty() - templateGame.GetDifficulty());
+
+            if (checkAgeCategory == false)
+            {
+                return 0;
+            }
+
+            return coefficientOfSimilarity;
         }
     }
 }
