@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRecommendationProvider.cs" />
+    <Compile Include="ISimilarityCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecommenderProvider.cs" />
   </ItemGroup>
