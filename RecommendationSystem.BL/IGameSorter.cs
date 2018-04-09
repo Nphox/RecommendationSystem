@@ -7,7 +7,7 @@ using RecommendationSystem.Data;
 
 namespace RecommendationSystem.BL
 {
-    interface IGameSorter
+    public interface IGameSorter
     {
         void QuickSort(double[] coefs, Game[] games, int left, int right);
     }
