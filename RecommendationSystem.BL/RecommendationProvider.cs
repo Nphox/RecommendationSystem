@@ -7,7 +7,7 @@ using RecommendationSystem.Data;
 
 namespace RecommendationSystem.BL
 {
-    public class RecommenderProvider : IRecommendationProvider
+    public class RecommendationProvider : IRecommendationProvider
     {
         public Game[] RecommendGames(Game[] games, Game templateGame, int numberSimilarGames)
         {
