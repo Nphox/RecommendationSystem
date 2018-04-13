@@ -17,20 +17,19 @@ namespace RecommendationSystem.BL
             rhs = temp;
         }
 
-        private int Partition(double[] koefs, Game[] games, int left, int right)
+        private int Partition(CalculatedGame[] games, int left, int right)
         {
-            double pivot = koefs[(left + right) / 2];
+            double pivot = games[(left + right) / 2].GetCoef();
             int i = left;
             int j = right;
 
             while (i <= j)
             {
-                while (koefs[i] < pivot) { i++; }
-                while (koefs[j] > pivot) { j--; }
+                while (games[i].GetCoef() < pivot) { i++; }
+                while (games[j].GetCoef() > pivot) { j--; }
                 if (i <= j)
                 {
-                    Swap<double>(ref koefs[i], ref koefs[j]);
-                    Swap<Game>(ref games[i], ref games[j]);
+                    Swap<CalculatedGame>(ref games[i], ref games[j]);
                     i++;
                     j--;
                 }
@@ -38,14 +37,14 @@ namespace RecommendationSystem.BL
             return i;
         }
 
-        public void QuickSort(double[] coefs, Game[] games, int left, int right)
+        public void QuickSort(CalculatedGame[] games, int left, int right)
         {
             if (left < right)
             {
-                int p = Partition(coefs, games, 0, coefs.Length - 1);
+                int p = Partition(games, 0, games.Length - 1);
 
-                QuickSort(coefs, games, left, p - 1);
-                QuickSort(coefs, games, p, right);
+                QuickSort(games, left, p - 1);
+                QuickSort(games, p, right);
             }
         }
     }

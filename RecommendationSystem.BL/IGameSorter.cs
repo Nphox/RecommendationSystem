@@ -9,6 +9,6 @@ namespace RecommendationSystem.BL
 {
     public interface IGameSorter
     {
-        void QuickSort(double[] coefs, Game[] games, int left, int right);
+        void QuickSort(CalculatedGame[] games, int left, int right);
     }
 }

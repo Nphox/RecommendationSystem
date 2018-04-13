@@ -33,7 +33,6 @@ namespace RecommendationSystem.BL.Test
             coefsSimilarityGamesActual[2] = 2.0;
 
             //act
-            sorter.QuickSort(coefsSimilarityGamesActual, gamesActual, 0, gamesActual.Length - 1);
 
             //assert
             Assert.AreEqual(gamesActual, gamesExpected);

@@ -11,13 +11,14 @@ namespace RecommendationSystem.BL
     {
         public Game[] RecommendGames(Game[] games, Game templateGame, int numberSimilarGames)
         {
-            double[] arrayCoefficientsSimilarity = new double[games.Length];
+            CalculatedGame[] calculatedGames = new CalculatedGame[games.Length];
 
             ISimilarityCalculator calculator = new SimilarityCalculator();
 
             for (int i = 0; i < games.Length; i++)
             {
-                arrayCoefficientsSimilarity[i] = calculator.CalculateSimilarity(games[i], templateGame);
+                calculatedGames[i].SetGame(games[i]);
+                calculatedGames[i].SetCoef(calculator.CalculateSimilarity(games[i], templateGame)); 
             }
 
             int countGames = numberSimilarGames < games.Length ? numberSimilarGames : games.Length;
@@ -26,11 +27,11 @@ namespace RecommendationSystem.BL
 
             GameSorter gameSorter = new GameSorter();
 
-            gameSorter.QuickSort(arrayCoefficientsSimilarity, games, 0, games.Length);
+            gameSorter.QuickSort(calculatedGames, 0, calculatedGames.Length);
 
             for (int i = 0; i < countGames; i++)
             {
-                similarGames[i] = games[i];
+                similarGames[i] = calculatedGames[i].GetGame();
             }
 
             return similarGames;
