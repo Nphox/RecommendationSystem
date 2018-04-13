@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RecommendationSystem.Data
 {
-    class CalculatedGame
+    public class CalculatedGame
     {
         private Game Game;
-        private double Coef;
-
-        public CalculatedGame(Game game, double coef)
-        {
-            Game = game;
-            Coef = coef;
-        }
+        private double CoefSimilarity;
 
         public Game GetGame()
         {
@@ -24,7 +19,17 @@ namespace RecommendationSystem.Data
 
         public double GetCoef()
         {
-            return Coef;
+            return CoefSimilarity;
+        }
+
+        public void SetGame(Game game)
+        {
+            Game = game;
+        }
+
+        public void SetCoef(double coef)
+        {
+            CoefSimilarity = coef;
         }
     }
 }
