@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,45 +8,21 @@ using RecommendationSystem.Data;
 
 namespace RecommendationSystem.BL
 {
-    public class GameSorter : IGameSorter
+    public class GameSorter : IComparer<CalculatedGame>
     {
-        private void Swap<T>(ref T lhs, ref T rhs)
+        public int Compare(CalculatedGame x, CalculatedGame y)
         {
-            T temp;
-            temp = lhs;
-            lhs = rhs;
-            rhs = temp;
-        }
-
-        private int Partition(CalculatedGame[] games, int left, int right)
-        {
-            double pivot = games[(left + right) / 2].GetCoef();
-            int i = left;
-            int j = right;
-
-            while (i <= j)
+            if (x.CoefSimilarity < y.CoefSimilarity)
             {
-                while (games[i].GetCoef() < pivot) { i++; }
-                while (games[j].GetCoef() > pivot) { j--; }
-                if (i <= j)
-                {
-                    Swap<CalculatedGame>(ref games[i], ref games[j]);
-                    i++;
-                    j--;
-                }
+                return 1;
             }
-            return i;
-        }
 
-        public void QuickSort(CalculatedGame[] games, int left, int right)
-        {
-            if (left < right)
+            if (x.CoefSimilarity > y.CoefSimilarity)
             {
-                int p = Partition(games, 0, games.Length - 1);
-
-                QuickSort(games, left, p - 1);
-                QuickSort(games, p, right);
+                return -1;
             }
+
+            return 0;
         }
     }
 }

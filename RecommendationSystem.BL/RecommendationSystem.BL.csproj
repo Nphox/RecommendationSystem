@@ -41,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameSorter.cs" />
-    <Compile Include="IGameSorter.cs" />
     <Compile Include="IRecommendationProvider.cs" />
     <Compile Include="ISimilarityCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

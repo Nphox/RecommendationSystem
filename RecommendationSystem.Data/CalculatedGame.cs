@@ -7,29 +7,20 @@ using System.Threading.Tasks;
 
 namespace RecommendationSystem.Data
 {
-    public class CalculatedGame
+    public class CalculatedGame : IComparable<CalculatedGame>
     {
-        private Game Game;
-        private double CoefSimilarity;
+        public Game Game { get; set; }
+        public double CoefSimilarity { get; set; }
 
-        public Game GetGame()
-        {
-            return Game;
-        }
-
-        public double GetCoef()
-        {
-            return CoefSimilarity;
-        }
-
-        public void SetGame(Game game)
+        public CalculatedGame(Game game, double coef)
         {
             Game = game;
+            CoefSimilarity = coef;
         }
 
-        public void SetCoef(double coef)
+        public int CompareTo(CalculatedGame other)
         {
-            CoefSimilarity = coef;
+            return other.CoefSimilarity.CompareTo(CoefSimilarity);
         }
     }
 }
