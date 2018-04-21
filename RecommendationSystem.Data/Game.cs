@@ -6,84 +6,21 @@ using System.Threading.Tasks;
 
 namespace RecommendationSystem.Data
 {
-    public class Game
+    public class Game : IComparable<Game>
     {
-        private int ID;
-        private String Name;
-        private int MaxNumberGamers;
-        private int MinNumberGamers;
-        private int AvgGameTimeInMinutes;
-        private int AgeCategory;
-        private int Difficulty;
+        public int ID { get; set; }
+        public String Name { get; set; }
+        public int MaxNumberGamers { get; set; }
+        public int MinNumberGamers { get; set; }
+        public int AvgGameTimeInMinutes { get; set; }
+        public int AgeCategory { get; set; }
+        public int Difficulty { get; set; }
 
-        public void SetID(int ID)
-        {
-            this.ID = ID;
-        }
+        public double CoefSimilarity { get; set; }
 
-        public void SetName(String Name)
+        public int CompareTo(Game other)
         {
-            this.Name = Name;
-        }
-
-        public void SetMaxNumberGamers(int MaxNumberGamers)
-        {
-            this.MaxNumberGamers = MaxNumberGamers;
-        }
-
-        public void SetMinNumberGamers(int MinNumberGamers)
-        {
-            this.MinNumberGamers = MinNumberGamers;
-        }
-
-        public void SetAvgGameTimeInMinutes(int AvgGameTimeInMinutes)
-        {
-            this.AvgGameTimeInMinutes = AvgGameTimeInMinutes;
-        }
-
-        public void SetAgeCategory(int AgeCategory)
-        {
-            this.AgeCategory = AgeCategory;
-        }
-
-        public void SetDifficulty(int Difficulty)
-        {
-            this.Difficulty = Difficulty;
-        }
-
-        public int GetID()
-        {
-            return ID;
-        }
-
-        public String GetName()
-        {
-            return Name;
-        }
-
-        public int GetMaxNumberGamers()
-        {
-            return MaxNumberGamers;
-        }
-
-        public int GetMinNumberGamers()
-        {
-            return MinNumberGamers;
-        }
-
-        public int GetAvgGameTimeInMinutes()
-        {
-            return AvgGameTimeInMinutes;
-        }
-
-        public int GetAgeCategory()
-        {
-            return AgeCategory;
-        }
-
-        public int GetDifficulty()
-        {
-            return Difficulty;
+            return other.CoefSimilarity.CompareTo(CoefSimilarity);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,69 +10,63 @@ using RecommendationSystem.Data;
 namespace RecommendationSystem.BL.Test
 {   
     [TestFixture]
-    public class GameSorterTest
+    public class GamesSortTest
     {
         [Test]
-        public void QuickSort_SortedGames()
+        public void Sort_SortedGames()
         {
             //arrange
-            GameSorter sorter = new GameSorter();
-
             #region Define actual objects
 
-            Game[] gamesActual = new Game[3];
-            gamesActual[0] = new Game();
-            gamesActual[1] = new Game();
-            gamesActual[2] = new Game();
+            var gamesActual = new List<Game>
+            {
+                new Game(),
+                new Game(),
+                new Game()
+            };
 
-            gamesActual[0].SetID(0);
-            gamesActual[1].SetID(1);
-            gamesActual[2].SetID(2);
+            gamesActual[0].ID = 0;
+            gamesActual[1].ID = 1;
+            gamesActual[2].ID = 2;
 
-            CalculatedGame[] calculatedGamesActual = new CalculatedGame[3];
-            calculatedGamesActual[0] = new CalculatedGame();
-            calculatedGamesActual[1] = new CalculatedGame();
-            calculatedGamesActual[2] = new CalculatedGame();
-
-            calculatedGamesActual[0].SetGame(gamesActual[0]);
-            calculatedGamesActual[1].SetGame(gamesActual[1]);
-            calculatedGamesActual[2].SetGame(gamesActual[2]);
-            calculatedGamesActual[0].SetCoef(0.0);
-            calculatedGamesActual[1].SetCoef(1.0);
-            calculatedGamesActual[2].SetCoef(2.0);
+            gamesActual[0].CoefSimilarity = 0;
+            gamesActual[1].CoefSimilarity = 1;
+            gamesActual[2].CoefSimilarity = 2;
 
             #endregion
 
             #region Define expected objects
 
-            Game[] gamesExpected = new Game[3];
-            gamesExpected[0] = new Game();
-            gamesExpected[1] = new Game();
-            gamesExpected[2] = new Game();
+            var gamesExpected = new List<Game>
+            {
+                new Game(),
+                new Game(),
+                new Game()
+            };
 
-            gamesExpected[0].SetID(2);
-            gamesExpected[1].SetID(1);
-            gamesExpected[2].SetID(0);
+            gamesExpected[0].ID = 2;
+            gamesExpected[1].ID = 1;
+            gamesExpected[2].ID = 0;
 
-            CalculatedGame[] calculatedGamesExpected = new CalculatedGame[3];
-            calculatedGamesExpected[0] = new CalculatedGame();
-            calculatedGamesExpected[1] = new CalculatedGame();
-            calculatedGamesExpected[2] = new CalculatedGame();
-
-            calculatedGamesExpected[0].SetGame(gamesExpected[0]);
-            calculatedGamesExpected[1].SetGame(gamesExpected[1]);
-            calculatedGamesExpected[2].SetGame(gamesExpected[2]);
-            calculatedGamesExpected[0].SetCoef(2.0);
-            calculatedGamesExpected[1].SetCoef(1.0);
-            calculatedGamesExpected[2].SetCoef(0.0);
+            gamesExpected[0].CoefSimilarity = 2;
+            gamesExpected[1].CoefSimilarity = 1;
+            gamesExpected[2].CoefSimilarity = 0;
 
             #endregion
 
             //act
-           
+            gamesActual.Sort();
+
+            Console.WriteLine("ID: " + gamesActual[0].ID + ", Coef: " + gamesActual[0].CoefSimilarity);
+            Console.WriteLine("ID: " + gamesActual[1].ID + ", Coef: " + gamesActual[1].CoefSimilarity);
+            Console.WriteLine("ID: " + gamesActual[2].ID + ", Coef: " + gamesActual[2].CoefSimilarity);
+
+            Console.WriteLine("ID: " + gamesExpected[0].ID + ", Coef: " + gamesExpected[0].CoefSimilarity);
+            Console.WriteLine("ID: " + gamesExpected[1].ID + ", Coef: " + gamesExpected[1].CoefSimilarity);
+            Console.WriteLine("ID: " + gamesExpected[2].ID + ", Coef: " + gamesExpected[2].CoefSimilarity);
 
             //assert
-            Assert.AreEqual(calculatedGamesActual, calculatedGamesExpected);
+            CollectionAssert.AreEqual(gamesExpected, gamesActual);
         }
     }
 }

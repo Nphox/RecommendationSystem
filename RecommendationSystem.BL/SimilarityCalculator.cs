@@ -11,18 +11,18 @@ namespace RecommendationSystem.BL
     {
         public double CalculateSimilarity(Game checkGame, Game templateGame)
         {
-            bool checkAgeCategory = true;
+            var checkAgeCategory = true;
 
             double coefficientOfSimilarity = 0;
 
-            if (checkGame.GetAgeCategory() > templateGame.GetAgeCategory())
+            if (checkGame.AgeCategory > templateGame.AgeCategory)
             {
                 checkAgeCategory = false;
             }
 
-            coefficientOfSimilarity += checkGame.GetAvgGameTimeInMinutes() / Math.Abs(checkGame.GetAvgGameTimeInMinutes() - templateGame.GetAvgGameTimeInMinutes());
+            coefficientOfSimilarity += checkGame.AvgGameTimeInMinutes / Math.Abs(checkGame.AvgGameTimeInMinutes - templateGame.AvgGameTimeInMinutes);
 
-            coefficientOfSimilarity += checkGame.GetDifficulty() / Math.Abs(checkGame.GetDifficulty() - templateGame.GetDifficulty());
+            coefficientOfSimilarity += checkGame.Difficulty / Math.Abs(checkGame.Difficulty - templateGame.Difficulty);
 
             if (checkAgeCategory == false)
             {

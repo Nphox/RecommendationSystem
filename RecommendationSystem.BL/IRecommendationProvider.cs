@@ -9,6 +9,6 @@ namespace RecommendationSystem.BL
 {
     public interface IRecommendationProvider
     {
-        Game[] RecommendGames(Game[] games, Game templateGame, int numberSimilarGames);
+        Game[] RecommendGames(List<Game> games, Game templateGame, int numberSimilarGames);
     }
 }

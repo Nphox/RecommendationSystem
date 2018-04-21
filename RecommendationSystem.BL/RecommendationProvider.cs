@@ -10,27 +10,26 @@ namespace RecommendationSystem.BL
 {
     public class RecommendationProvider : IRecommendationProvider
     {
-        public Game[] RecommendGames(Game[] games, Game templateGame, int numberSimilarGames)
+        public Game[] RecommendGames(List<Game> games, Game templateGame, int numberSimilarGames)
         {
-            var calculatedGames = new ArrayList();
-
             ISimilarityCalculator calculator = new SimilarityCalculator();
 
-            for (var i = 0; i < games.Length; i++)
+            foreach (var game in games)
             {
-                calculatedGames.Add(new CalculatedGame(games[i], calculator.CalculateSimilarity(games[i], templateGame))); 
+                game.CoefSimilarity = calculator.CalculateSimilarity(game, templateGame);
             }
 
-            var countGames = numberSimilarGames < games.Length ? numberSimilarGames : games.Length;
+            //сортировка по коэффициентам
+            games.Sort();
+
+            var countGames = numberSimilarGames < games.Count ? numberSimilarGames : games.Count;
 
             var similarGames = new Game[countGames];
 
-
-
             var j = 0;
-            foreach (CalculatedGame game in calculatedGames)
+            foreach (var game in games)
             {
-                similarGames[j++] = game.Game;
+                similarGames[j++] = game;
             }
 
             return similarGames;
