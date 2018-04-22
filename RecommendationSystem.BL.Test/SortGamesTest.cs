@@ -10,7 +10,7 @@ using RecommendationSystem.Data;
 namespace RecommendationSystem.BL.Test
 {   
     [TestFixture]
-    public class GamesSortTest
+    public class SortGamesTest
     {
         [Test]
         public void Sort_SortedGames()
@@ -66,7 +66,13 @@ namespace RecommendationSystem.BL.Test
             Console.WriteLine("ID: " + gamesExpected[2].ID + ", Coef: " + gamesExpected[2].CoefSimilarity);
 
             //assert
-            CollectionAssert.AreEqual(gamesExpected, gamesActual);
+            Assert.AreEqual(gamesExpected.Count, gamesActual.Count);
+
+            for (var i = 0; i < gamesExpected.Count; i++)
+            {
+                Assert.AreEqual(gamesExpected[i].ID, gamesActual[i].ID);
+                Assert.AreEqual(gamesExpected[i].CoefSimilarity, gamesActual[i].CoefSimilarity);
+            }
         }
     }
 }

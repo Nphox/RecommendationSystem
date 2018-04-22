@@ -9,6 +9,16 @@ namespace RecommendationSystem.BL
 {
     public class SimilarityCalculator : ISimilarityCalculator
     {
+        public double Percentage(double a, double b)
+        {
+            if (a >= b)
+            {
+                return Math.Round(b / a, 2);
+            }
+
+            return Math.Round(a / b, 2);
+        }
+
         public double CalculateSimilarity(Game checkGame, Game templateGame)
         {
             var checkAgeCategory = true;
@@ -20,9 +30,9 @@ namespace RecommendationSystem.BL
                 checkAgeCategory = false;
             }
 
-            coefficientOfSimilarity += checkGame.AvgGameTimeInMinutes / Math.Abs(checkGame.AvgGameTimeInMinutes - templateGame.AvgGameTimeInMinutes);
+            coefficientOfSimilarity += Percentage(checkGame.AvgGameTimeInMinutes, templateGame.AvgGameTimeInMinutes);
 
-            coefficientOfSimilarity += checkGame.Difficulty / Math.Abs(checkGame.Difficulty - templateGame.Difficulty);
+            coefficientOfSimilarity += Percentage(checkGame.Difficulty, templateGame.Difficulty);
 
             if (checkAgeCategory == false)
             {

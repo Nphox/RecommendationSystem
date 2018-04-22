@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameSorterTest.cs" />
+    <Compile Include="RecommendationProviderTest.cs" />
+    <Compile Include="SimilarityCalculatorTest.cs" />
+    <Compile Include="SortGamesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

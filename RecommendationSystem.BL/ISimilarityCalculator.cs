@@ -10,5 +10,6 @@ namespace RecommendationSystem.BL
     public interface ISimilarityCalculator
     {
         double CalculateSimilarity(Game checkGame, Game templateGame);
+        double Percentage(double a, double b);
     }
 }

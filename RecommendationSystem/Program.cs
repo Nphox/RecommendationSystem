@@ -11,9 +11,6 @@ namespace RecommendationSystem
     {
         static void Main(string[] args)
         {
-            Game[] gamesActual = new Game[3];
-            gamesActual[0].SetID(0);
-            Console.WriteLine(gamesActual[0].GetID());
         }
     }
 }

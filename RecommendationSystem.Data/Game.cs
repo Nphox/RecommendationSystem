@@ -18,6 +18,19 @@ namespace RecommendationSystem.Data
 
         public double CoefSimilarity { get; set; }
 
+        public Game() { }
+
+        public Game(int ID, String Name, int MaxNumberGamers, int MinNumberGamers, int AvgGameTimeInMinutes, int AgeCategory, int Difficulty)
+        {
+            this.ID = ID;
+            this.Name = Name;
+            this.MaxNumberGamers = MaxNumberGamers;
+            this.MinNumberGamers = MinNumberGamers;
+            this.AvgGameTimeInMinutes = AvgGameTimeInMinutes;
+            this.AgeCategory = AgeCategory;
+            this.Difficulty = Difficulty;
+        }
+
         public int CompareTo(Game other)
         {
             return other.CoefSimilarity.CompareTo(CoefSimilarity);
