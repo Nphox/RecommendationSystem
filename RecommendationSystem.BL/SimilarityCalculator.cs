@@ -11,12 +11,27 @@ namespace RecommendationSystem.BL
     {
         public double Percentage(double a, double b)
         {
-            if (a >= b)
+            return a >= b ? Math.Round(b / a, 2) : Math.Round(a / b, 2);
+        }
+
+        public double SimilarityUniverses(Universe check, Universe template)
+        {
+            if (check == template)
             {
-                return Math.Round(b / a, 2);
+                return 0.2;
             }
 
-            return Math.Round(a / b, 2);
+            if (check == Universe.Pirates && template == Universe.Vikings)
+            {
+                return 0.12;
+            }
+
+            if (check == Universe.Vikings && template == Universe.Pirates)
+            {
+                return 0.12;
+            }
+
+            return 0;
         }
 
         public double CalculateSimilarity(Game checkGame, Game templateGame)
@@ -30,16 +45,13 @@ namespace RecommendationSystem.BL
                 checkAgeCategory = false;
             }
 
+            coefficientOfSimilarity += SimilarityUniverses(checkGame.Universe, templateGame.Universe);
+
             coefficientOfSimilarity += Percentage(checkGame.AvgGameTimeInMinutes, templateGame.AvgGameTimeInMinutes);
 
             coefficientOfSimilarity += Percentage(checkGame.Difficulty, templateGame.Difficulty);
 
-            if (checkAgeCategory == false)
-            {
-                return 0;
-            }
-
-            return coefficientOfSimilarity;
+            return checkAgeCategory == false ? 0 : coefficientOfSimilarity;
         }
     }
 }
