@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RecommendationSystem.BL.Test
 {
-    class RecommendationProviderTest
+    public class RecommendationProviderTest
     {
+
     }
 }

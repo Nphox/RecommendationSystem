@@ -57,14 +57,6 @@ namespace RecommendationSystem.BL.Test
             //act
             gamesActual.Sort();
 
-            Console.WriteLine("ID: " + gamesActual[0].ID + ", Coef: " + gamesActual[0].CoefSimilarity);
-            Console.WriteLine("ID: " + gamesActual[1].ID + ", Coef: " + gamesActual[1].CoefSimilarity);
-            Console.WriteLine("ID: " + gamesActual[2].ID + ", Coef: " + gamesActual[2].CoefSimilarity);
-
-            Console.WriteLine("ID: " + gamesExpected[0].ID + ", Coef: " + gamesExpected[0].CoefSimilarity);
-            Console.WriteLine("ID: " + gamesExpected[1].ID + ", Coef: " + gamesExpected[1].CoefSimilarity);
-            Console.WriteLine("ID: " + gamesExpected[2].ID + ", Coef: " + gamesExpected[2].CoefSimilarity);
-
             //assert
             Assert.AreEqual(gamesExpected.Count, gamesActual.Count);
 
