@@ -12,12 +12,12 @@ namespace RecommendationSystem.BL.Test
         public void CalculateSimilarity_0()
         {
             //arrange
-            Game templateGame = new Game(1, "ABC", 4, 2, 90, 16, 7, Universe.Pirates);
-            Game checkGame = new Game(1, "ABC", 4, 2, 90, 17, 7, Universe.CyberPunk);
+            Game templateGame = new Game(1, "ABC", 4, 2, 90, 16, 7, Universe.Pirates, Character.RolePlaying);
+            Game checkGame = new Game(1, "ABC", 4, 2, 90, 17, 7, Universe.CyberPunk, Character.Strategy);
             double expexted = 0;
             
             //act
-            double actual = _calculator.CalculateSimilarity(checkGame, templateGame, Relations.Universes, Relations.Characters, Relations.importanceUniverse, Relations.importanceCharacter);
+            double actual = _calculator.CalculateSimilarity(checkGame, templateGame, Relations.Universes, Relations.Characters, Relations.ImportanceUniverse, Relations.ImportanceCharacter);
 
             //assert
             Assert.AreEqual(expexted, actual);
@@ -27,12 +27,12 @@ namespace RecommendationSystem.BL.Test
         public void CalculateSimilarity_2()
         {
             //arrange
-            Game templateGame = new Game(1, "ABC", 4, 2, 90, 16, 7, Universe.Pirates);
-            Game checkGame = new Game(1, "ABC", 4, 2, 90, 16, 7, Universe.CyberPunk);
-            double expexted = 2;
+            Game templateGame = new Game(1, "ABC", 4, 2, 90, 16, 7, Universe.Pirates, Character.RolePlaying);
+            Game checkGame = new Game(1, "ABC", 4, 2, 90, 16, 7, Universe.CyberPunk, Character.Strategy);
+            double expexted = 0.2;
 
             //act
-            double actual = _calculator.CalculateSimilarity(checkGame, templateGame, Relations.Universes, Relations.Characters, Relations.importanceUniverse, Relations.importanceCharacter);
+            double actual = _calculator.CalculateSimilarity(checkGame, templateGame, Relations.Universes, Relations.Characters, Relations.ImportanceUniverse, Relations.ImportanceCharacter);
 
             //assert
             Assert.AreEqual(expexted, actual);
@@ -42,12 +42,12 @@ namespace RecommendationSystem.BL.Test
         public void CalculateSimilarity_1_75()
         {
             //arrange
-            Game templateGame = new Game(1, "ABC", 4, 2, 90, 16, 7, Universe.Pirates);
-            Game checkGame =    new Game(1, "ABC", 4, 2, 120, 16, 7, Universe.CyberPunk);
-            double expexted = 1.75;
+            Game templateGame = new Game(1, "ABC", 4, 2, 90, 16, 7, Universe.Pirates, Character.RolePlaying);
+            Game checkGame =    new Game(1, "ABC", 4, 2, 120, 16, 7, Universe.CyberPunk, Character.Strategy);
+            double expexted = 0.175;
 
             //act
-            double actual = _calculator.CalculateSimilarity(checkGame, templateGame, Relations.Universes, Relations.Characters, Relations.importanceUniverse, Relations.importanceCharacter);
+            double actual = _calculator.CalculateSimilarity(checkGame, templateGame, Relations.Universes, Relations.Characters, Relations.ImportanceUniverse, Relations.ImportanceCharacter);
 
             //assert
             Assert.AreEqual(expexted, actual);
@@ -57,12 +57,12 @@ namespace RecommendationSystem.BL.Test
         public void CalculateSimilarity_1_78()
         {
             //arrange
-            Game templateGame = new Game(1, "ABC", 4, 2, 90, 16, 7, Universe.Pirates);
-            Game checkGame = new Game(1, "ABC", 4, 2, 90, 16, 9, Universe.CyberPunk);
-            double expexted = 1.78;
+            Game templateGame = new Game(1, "ABC", 4, 2, 90, 16, 7, Universe.Pirates, Character.RolePlaying);
+            Game checkGame = new Game(1, "ABC", 4, 2, 90, 16, 9, Universe.CyberPunk, Character.Strategy);
+            double expexted = 0.178;
 
             //act
-            double actual = _calculator.CalculateSimilarity(checkGame, templateGame, Relations.Universes, Relations.Characters, Relations.importanceUniverse, Relations.importanceCharacter);
+            double actual = _calculator.CalculateSimilarity(checkGame, templateGame, Relations.Universes, Relations.Characters, Relations.ImportanceUniverse, Relations.ImportanceCharacter);
 
             //assert
             Assert.AreEqual(expexted, actual);

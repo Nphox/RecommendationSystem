@@ -18,7 +18,7 @@ namespace RecommendationSystem.BL.Test
         public void RecommendGames_a_b_c()
         {
             //arrange
-            var t = new Game(0, "ABC", 4, 2, 90, 17, 7, Universe.Pirates);
+            var t = new Game(0, "ABC", 4, 2, 90, 17, 7, Universe.Pirates, Character.Strategy);
 
 
             //act

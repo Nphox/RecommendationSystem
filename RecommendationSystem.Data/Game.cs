@@ -8,10 +8,10 @@ namespace RecommendationSystem.Data
 {
     public class Game : IComparable<Game>
     {
-        public int ID { get; set; }
-        public String Name { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public Universe Universe { get; set; }
-        public Universe Character { get; set; }
+        public Character Character { get; set; }
         public int MaxNumberGamers { get; set; }
         public int MinNumberGamers { get; set; }
         public int AvgGameTimeInMinutes { get; set; }
@@ -20,16 +20,17 @@ namespace RecommendationSystem.Data
         public double CoefSimilarity { get; set; }
 
         public Game() { }
-        public Game(int ID, String Name, int MaxNumberGamers, int MinNumberGamers, int AvgGameTimeInMinutes, int AgeCategory, int Difficulty, Universe universe)
+        public Game(int id, string name, int maxNumberGamers, int minNumberGamers, int avgGameTimeInMinutes, int ageCategory, int difficulty, Universe universe, Character character)
         {
-            this.ID = ID;
-            this.Name = Name;
-            this.MaxNumberGamers = MaxNumberGamers;
-            this.MinNumberGamers = MinNumberGamers;
-            this.AvgGameTimeInMinutes = AvgGameTimeInMinutes;
-            this.AgeCategory = AgeCategory;
-            this.Difficulty = Difficulty;
-            this.Universe = universe;
+            Id = id;
+            Name = name;
+            MaxNumberGamers = maxNumberGamers;
+            MinNumberGamers = minNumberGamers;
+            AvgGameTimeInMinutes = avgGameTimeInMinutes;
+            AgeCategory = ageCategory;
+            Difficulty = difficulty;
+            Universe = universe;
+            Character = character;
         }
         public int CompareTo(Game other)
         {

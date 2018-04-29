@@ -25,11 +25,11 @@ namespace RecommendationSystem.BL
 
             coefficientOfSimilarity += importanceCharacter * relationshipCharacters[(int)checkGame.Character, (int)templateGame.Character];
 
-            coefficientOfSimilarity += Percentage(checkGame.AvgGameTimeInMinutes, templateGame.AvgGameTimeInMinutes);
+            coefficientOfSimilarity += Relations.MaxPartOfAvgGameTimeInMinutes * Percentage(checkGame.AvgGameTimeInMinutes, templateGame.AvgGameTimeInMinutes);
 
-            coefficientOfSimilarity += Percentage(checkGame.Difficulty, templateGame.Difficulty);
+            coefficientOfSimilarity += Relations.MaxPartOfDifficulty * Percentage(checkGame.Difficulty, templateGame.Difficulty);
 
-            return checkAgeCategory == false ? 0 : coefficientOfSimilarity;
+            return checkAgeCategory == false ? 0 : Math.Round(coefficientOfSimilarity, 3);
         }
     }
 }

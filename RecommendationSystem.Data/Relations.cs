@@ -2,6 +2,9 @@
 {
     public static class Relations
     {
+        public const double MaxPartOfAvgGameTimeInMinutes = 0.1;
+        public const double MaxPartOfDifficulty = 0.1;
+
         public static double[,] Universes = 
         {
             {0.25, 0.15,    0,    0,    0},
@@ -19,7 +22,8 @@
             {0.15, 0.10,    0, 0.25}
         };
 
-        public const double importanceUniverse = 0.5;
-        public const double importanceCharacter = 0.5;
+        public const double ImportanceUniverse = 1;
+        public const double ImportanceCharacter = 1;
+
     }
 }

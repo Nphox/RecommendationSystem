@@ -20,9 +20,9 @@ namespace RecommendationSystem.BL.Test
                 new Game()
             };
 
-            gamesActual[0].ID = 0;
-            gamesActual[1].ID = 1;
-            gamesActual[2].ID = 2;
+            gamesActual[0].Id = 0;
+            gamesActual[1].Id = 1;
+            gamesActual[2].Id = 2;
 
             gamesActual[0].CoefSimilarity = 0;
             gamesActual[1].CoefSimilarity = 1;
@@ -39,9 +39,9 @@ namespace RecommendationSystem.BL.Test
                 new Game()
             };
 
-            gamesExpected[0].ID = 2;
-            gamesExpected[1].ID = 1;
-            gamesExpected[2].ID = 0;
+            gamesExpected[0].Id = 2;
+            gamesExpected[1].Id = 1;
+            gamesExpected[2].Id = 0;
 
             gamesExpected[0].CoefSimilarity = 2;
             gamesExpected[1].CoefSimilarity = 1;
@@ -57,7 +57,7 @@ namespace RecommendationSystem.BL.Test
 
             for (var i = 0; i < gamesExpected.Count; i++)
             {
-                Assert.AreEqual(gamesExpected[i].ID, gamesActual[i].ID);
+                Assert.AreEqual(gamesExpected[i].Id, gamesActual[i].Id);
                 Assert.AreEqual(gamesExpected[i].CoefSimilarity, gamesActual[i].CoefSimilarity);
             }
         }
