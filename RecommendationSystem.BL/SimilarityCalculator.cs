@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using RecommendationSystem.Data;
 
 namespace RecommendationSystem.BL
@@ -14,27 +10,7 @@ namespace RecommendationSystem.BL
             return a >= b ? Math.Round(b / a, 2) : Math.Round(a / b, 2);
         }
 
-        public double SimilarityUniverses(Universe check, Universe template)
-        {
-            if (check == template)
-            {
-                return 0.2;
-            }
-
-            if (check == Universe.Pirates && template == Universe.Vikings)
-            {
-                return 0.12;
-            }
-
-            if (check == Universe.Vikings && template == Universe.Pirates)
-            {
-                return 0.12;
-            }
-
-            return 0;
-        }
-
-        public double CalculateSimilarity(Game checkGame, Game templateGame)
+        public double CalculateSimilarity(Game checkGame, Game templateGame, double[,] relationshipUniverses, double[,] relationshipCharacters, double importanceUniverse, double importanceCharacter)
         {
             var checkAgeCategory = true;
 
@@ -45,7 +21,9 @@ namespace RecommendationSystem.BL
                 checkAgeCategory = false;
             }
 
-            coefficientOfSimilarity += SimilarityUniverses(checkGame.Universe, templateGame.Universe);
+            coefficientOfSimilarity += importanceUniverse * relationshipUniverses[(int) checkGame.Universe, (int) templateGame.Universe];
+
+            coefficientOfSimilarity += importanceCharacter * relationshipCharacters[(int)checkGame.Character, (int)templateGame.Character];
 
             coefficientOfSimilarity += Percentage(checkGame.AvgGameTimeInMinutes, templateGame.AvgGameTimeInMinutes);
 

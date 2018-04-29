@@ -16,7 +16,7 @@ namespace RecommendationSystem.BL
 
             foreach (var game in games)
             {
-                game.CoefSimilarity = calculator.CalculateSimilarity(game, templateGame);
+                game.CoefSimilarity = calculator.CalculateSimilarity(game, templateGame, Relations.Universes, Relations.Characters, Relations.importanceUniverse, Relations.importanceCharacter);
             }
 
             //сортировка по коэффициентам

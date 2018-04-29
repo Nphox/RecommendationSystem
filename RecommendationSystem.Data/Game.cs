@@ -11,7 +11,7 @@ namespace RecommendationSystem.Data
         public int ID { get; set; }
         public String Name { get; set; }
         public Universe Universe { get; set; }
-        public Character Character { get; set; }
+        public Universe Character { get; set; }
         public int MaxNumberGamers { get; set; }
         public int MinNumberGamers { get; set; }
         public int AvgGameTimeInMinutes { get; set; }
@@ -20,7 +20,7 @@ namespace RecommendationSystem.Data
         public double CoefSimilarity { get; set; }
 
         public Game() { }
-        public Game(int ID, String Name, int MaxNumberGamers, int MinNumberGamers, int AvgGameTimeInMinutes, int AgeCategory, int Difficulty)
+        public Game(int ID, String Name, int MaxNumberGamers, int MinNumberGamers, int AvgGameTimeInMinutes, int AgeCategory, int Difficulty, Universe universe)
         {
             this.ID = ID;
             this.Name = Name;
@@ -29,6 +29,7 @@ namespace RecommendationSystem.Data
             this.AvgGameTimeInMinutes = AvgGameTimeInMinutes;
             this.AgeCategory = AgeCategory;
             this.Difficulty = Difficulty;
+            this.Universe = universe;
         }
         public int CompareTo(Game other)
         {
