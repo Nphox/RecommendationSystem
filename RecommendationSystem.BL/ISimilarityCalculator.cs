@@ -1,4 +1,5 @@
-﻿using RecommendationSystem.Data;
+﻿using System.Collections.Generic;
+using RecommendationSystem.Data;
 
 namespace RecommendationSystem.BL
 {
@@ -8,6 +9,8 @@ namespace RecommendationSystem.BL
 
         double CalculateSimilarity(Game checkGame, Game templateGame, double[,] relationshipUniverses,
             double[,] relationshipCharacters, double importanceUniverse, double importanceCharacter);
+
+        void RecalculateWithUsersChoice(List<Game> games);
     }
 }
 

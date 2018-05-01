@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using RecommendationSystem.Data;
 
 namespace RecommendationSystem.BL
 {
     public class RecommendationProvider : IRecommendationProvider
     {
-        public Game[] RecommendGames(List<Game> games, Game templateGame, int numberSimilarGames)
+        public Game[] RecommendGames(List<Game> games, Game templateGame, int numberSimilarGames, bool usersChoice)
         {
             ISimilarityCalculator calculator = new SimilarityCalculator();
 
             foreach (var game in games)
             {
                 game.CoefSimilarity = calculator.CalculateSimilarity(game, templateGame, Relations.Universes, Relations.Characters, Relations.ImportanceUniverse, Relations.ImportanceCharacter);
+            }
+
+            if (usersChoice)
+            {
+                calculator.RecalculateWithUsersChoice(games);
             }
 
             //сортировка по коэффициентам

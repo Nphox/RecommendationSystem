@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using RecommendationSystem.Data;
 
 namespace RecommendationSystem.BL
@@ -30,6 +31,26 @@ namespace RecommendationSystem.BL
             coefficientOfSimilarity += Relations.MaxPartOfDifficulty * Percentage(checkGame.Difficulty, templateGame.Difficulty);
 
             return checkAgeCategory == false ? 0 : Math.Round(coefficientOfSimilarity, 3);
+        }
+
+        public void RecalculateWithUsersChoice(List<Game> games)
+        {
+            var maxRating = games[0].Rating;
+
+            foreach (var game in games)
+            {
+                if (game.Rating > maxRating)
+                {
+                    maxRating = game.Rating;
+                }
+            }
+
+            var percent = maxRating / 100;
+
+            foreach (var game in games)
+            {
+                game.CoefSimilarity += game.Rating / percent;
+            }
         }
     }
 }

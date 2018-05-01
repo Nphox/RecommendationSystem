@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RecommendationSystem.Data
 {
@@ -17,10 +13,13 @@ namespace RecommendationSystem.Data
         public int AvgGameTimeInMinutes { get; set; }
         public int AgeCategory { get; set; }
         public int Difficulty { get; set; }
+        public int Rating { get; set; }
+
         public double CoefSimilarity { get; set; }
 
         public Game() { }
-        public Game(int id, string name, int maxNumberGamers, int minNumberGamers, int avgGameTimeInMinutes, int ageCategory, int difficulty, Universe universe, Character character)
+
+        public Game(int id, string name, int maxNumberGamers, int minNumberGamers, int avgGameTimeInMinutes, int ageCategory, int difficulty, Universe universe, Character character, int rating)
         {
             Id = id;
             Name = name;
@@ -31,7 +30,14 @@ namespace RecommendationSystem.Data
             Difficulty = difficulty;
             Universe = universe;
             Character = character;
+            Rating = rating;
         }
+
+        public void IncreaseRating(int value)
+        {
+            Rating += value;
+        }
+
         public int CompareTo(Game other)
         {
             return other.CoefSimilarity.CompareTo(CoefSimilarity);
