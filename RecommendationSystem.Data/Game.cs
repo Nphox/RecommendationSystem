@@ -13,7 +13,7 @@ namespace RecommendationSystem.Data
         public int AvgGameTimeInMinutes { get; set; }
         public int AgeCategory { get; set; }
         public int Difficulty { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
 
         public double CoefSimilarity { get; set; }
 
@@ -33,7 +33,7 @@ namespace RecommendationSystem.Data
             Rating = rating;
         }
 
-        public void IncreaseRating(int value)
+        public void IncreaseRating(double value)
         {
             Rating += value;
         }

@@ -45,7 +45,7 @@ namespace RecommendationSystem.BL
                 }
             }
 
-            var percent = maxRating / 100;
+            double percent = maxRating / 100;
 
             foreach (var game in games)
             {
