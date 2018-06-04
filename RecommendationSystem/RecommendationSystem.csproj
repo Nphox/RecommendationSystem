@@ -73,6 +73,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BoardGamesExtractor-master\BoardGamesExtractor\BoardGamesExtractor.csproj">
+      <Project>{79290432-07B7-4C58-ABD6-3695BA4DC9D2}</Project>
+      <Name>BoardGamesExtractor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RecommendationSystem.BL\RecommendationSystem.BL.csproj">
       <Project>{b2f38570-e8ba-45f6-9cdf-aab7db238d1b}</Project>
       <Name>RecommendationSystem.BL</Name>

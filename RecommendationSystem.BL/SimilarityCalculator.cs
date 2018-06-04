@@ -11,7 +11,13 @@ namespace RecommendationSystem.BL
             return a >= b ? Math.Round(b / a, 2) : Math.Round(a / b, 2);
         }
 
-        public double CalculateSimilarity(Game checkGame, Game templateGame, double[,] relationshipUniverses, double[,] relationshipCharacters, double importanceUniverse, double importanceCharacter)
+        public double CalculateSimilarity(
+            Game checkGame, 
+            Game templateGame, 
+            double[,] relationshipUniverses, 
+            double[,] relationshipCharacters, 
+            double importanceUniverse, 
+            double importanceCharacter)
         {
             var checkAgeCategory = true;
 
@@ -49,7 +55,7 @@ namespace RecommendationSystem.BL
 
             foreach (var game in games)
             {
-                game.CoefSimilarity += game.Rating / percent;
+                game.CoefSimilarity += game.Rating / percent / 1000;
             }
         }
     }

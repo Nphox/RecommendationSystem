@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Tags]
+(
+	[Title] NCHAR(50) NOT NULL PRIMARY KEY,
+    [Tag] NCHAR(50) NULL
+)
