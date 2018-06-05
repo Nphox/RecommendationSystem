@@ -2,8 +2,8 @@
 {
     public static class Relations
     {
-        public const double MaxPartOfAvgGameTimeInMinutes = 0.1;
-        public const double MaxPartOfDifficulty = 0.1;
+        public const double MaxPartOfMinGameTime = 0.1;
+        public const double MaxPartOfComplexity = 0.1;
 
         public static double[,] Universes = 
         {

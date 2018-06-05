@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using BoardGamesExtractor;
 using RecommendationSystem.Data;
 
 namespace RecommendationSystem.BL
 {
     public class RecommendationProvider : IRecommendationProvider
     {
-        public Game[] RecommendGames(List<Game> games, Game templateGame, int numberSimilarGames, bool usersChoice)
+        public GameParams[] RecommendGames(List<GameParams> games, GameParams templateGame, int numberSimilarGames, bool usersChoice)
         {
             ISimilarityCalculator calculator = new SimilarityCalculator();
 

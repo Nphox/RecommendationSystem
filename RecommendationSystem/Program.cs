@@ -9,29 +9,17 @@ namespace RecommendationSystem
 {
     class Program
     {
-        public static void GamesInit(List<Game> games)
-        {
-            var template = new Game(0, "***", 8, 2, 90, 16, 7, Universe.Pirates, Character.Strategy, 0);
-
-            games.Add(new Game(1, "Pirates", 4, 2, 90, 16, 7, Universe.Pirates, Character.Strategy, 25));
-            games.Add(new Game(2, "North Sea", 4, 2, 90, 16, 7, Universe.Pirates, Character.RolePlaying, 50));
-            games.Add(new Game(3, "Gold & Silver", 4, 2, 90, 16, 7, Universe.Pirates, Character.Detective, 25));
-
-            games.Add(new Game(4, "Old World", 4, 2, 90, 16, 7, Universe.Vikings, Character.Strategy, 25));
-            games.Add(new Game(5, "Cold Blood", 4, 2, 90, 16, 7, Universe.Vikings, Character.RolePlaying, 50));
-            games.Add(new Game(6, "Two Swords", 4, 2, 90, 16, 7, Universe.Vikings, Character.Detective, 50));
-        }
-
         public static void LoadGames(List<GameParams> list)
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Projects\RecommendationSystem\RecommendationSystem\Database1.mdf;Integrated Security=True; ";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Projects\RecommendationSystem\RecommendationSystem\Database1.mdf;Integrated Security=True; MultipleActiveResultSets=True";
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
             SqlDataReader sqlDataReader = null;
-            SqlCommand command = new SqlCommand("SELECT * FROM [Games]", sqlConnection);
+            SqlCommand gamesCmd = new SqlCommand("SELECT * FROM [Games]", sqlConnection);
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             try
             {
-                sqlDataReader = command.ExecuteReader();
+                sqlDataReader = gamesCmd.ExecuteReader();
                 int i = 0;
                 while (sqlDataReader.Read())
                 {
@@ -46,55 +34,71 @@ namespace RecommendationSystem
                     list[i].Age.MaxAge = Convert.ToInt32(sqlDataReader["MaxAge"]);
                     list[i].Players.MinPlayers = Convert.ToInt32(sqlDataReader["MinPlayers"]);
 
+                    #region load tags
                     SqlDataReader tagsReader = null;
-                    SqlCommand tagsCmd = new SqlCommand("SELECT Tag FROM [Tags] where Title = " + Convert.ToString(list[i].Title), sqlConnection);
-                    tagsReader = tagsCmd.ExecuteReader();
+                    string valueAttribute = Convert.ToString(list[i].Title);
+                    
+                    int index = valueAttribute.IndexOf("'");
+                    if (index > 0)
+                    {
+                        valueAttribute = valueAttribute.Insert(index, "'");
+                        index = valueAttribute.IndexOf("'", index + 2);
+                        if (index > 0)
+                        {
+                            valueAttribute = valueAttribute.Insert(index, "'");
+                        }                         
+                    }
 
+                    string query = "SELECT Tag FROM [Tags] where Title = " + "N" + "'" + valueAttribute + "'";
+                    SqlCommand tagsCmd = new SqlCommand(query, sqlConnection);
+                    tagsReader = tagsCmd.ExecuteReader();
+                    
                     while (tagsReader.Read())
                     {
                         list[i].Tags.Add(Convert.ToString(tagsReader["Tag"]));
                     }
-                   
+                    #endregion
+
+                    #region load categories
+                    SqlDataReader categReader = null;
+
+                    query = "SELECT Categories FROM [Categories] where Title = " + "N" + "'" + valueAttribute + "'";
+                    SqlCommand categCmd = new SqlCommand(query, sqlConnection);
+                    categReader = categCmd.ExecuteReader();
+
+                    while (categReader.Read())
+                    {
+                        list[i].Categories.Add(Convert.ToString(categReader["Categories"]));
+                    }
+                    #endregion
+
+                    #region load thematic
+                    SqlDataReader thematicReader = null;
+
+                    query = "SELECT Thematic FROM [Thematic] where Title = " + "N" + "'" + valueAttribute + "'";
+                    SqlCommand thematicCmd = new SqlCommand(query, sqlConnection);
+                    thematicReader = thematicCmd.ExecuteReader();
+
+                    while (thematicReader.Read())
+                    {
+                        list[i].Thematic.Add(Convert.ToString(thematicReader["Thematic"]));
+                    }
+                    #endregion
+
+                    #region load series
+                    SqlDataReader seriesReader = null;
+
+                    query = "SELECT Series FROM [Series] where Title = " + "N" + "'" + valueAttribute + "'";
+                    SqlCommand seriesCmd = new SqlCommand(query, sqlConnection);
+                    seriesReader = seriesCmd.ExecuteReader();
+
+                    while (seriesReader.Read())
+                    {
+                        list[i].Series.Add(Convert.ToString(seriesReader["Series"]));
+                    }
+                    #endregion
+
                     i++;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            sqlConnection.Close();
-        }
-
-        public static void Insert(List<Game> list)
-        {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Projects\RecommendationSystem\RecommendationSystem\Database1.mdf;Integrated Security=True";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
-            SqlCommand command = new SqlCommand("INSERT INTO [Games] (Id, Name, Difficulty)VALUES(@Id, @Name, @Difficulty)", sqlConnection);
-
-            command.Parameters.AddWithValue("Id", list[0].Id);
-            command.Parameters.AddWithValue("Name", list[0].Name);
-            command.Parameters.AddWithValue("Difficulty", list[0].Difficulty);
-
-            Int32 rowsAffected = command.ExecuteNonQuery();
-            Console.WriteLine("RowsAffected: {0}", rowsAffected);
-
-            sqlConnection.Close();
-        }
-
-        public static void Select()
-        {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Projects\RecommendationSystem\RecommendationSystem\Database1.mdf;Integrated Security=True";
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
-            SqlDataReader sqlDataReader = null;
-            SqlCommand command = new SqlCommand("SELECT * FROM [Games]", sqlConnection);
-            try
-            {
-                sqlDataReader = command.ExecuteReader();
-                while (sqlDataReader.Read())
-                {
-                    Console.WriteLine(Convert.ToString(sqlDataReader["Id"]) + " " + Convert.ToString(sqlDataReader["Name"]) + " " + Convert.ToString(sqlDataReader["Difficulty"]));
                 }
             }
             catch (Exception e)
@@ -110,15 +114,14 @@ namespace RecommendationSystem
             LoadGames(list);    
             foreach(GameParams g in list)
             {
-                Console.WriteLine(g.Title);
+                Console.WriteLine(g.Title + " : " + g.Tags.Count + " tags");
+                Console.WriteLine(g.Title + " : " + g.Categories.Count + " categories"); 
+                Console.WriteLine(g.Title + " : " + g.Thematic.Count + " thematic");
+                Console.WriteLine(g.Title + " : " + g.Series.Count + " series");
             }
 
-            Console.WriteLine("Countt: " + list.Count);
+            Console.WriteLine("Count of games: " + list.Count);
 
-            foreach(string s in list[0].Tags)
-            {
-                Console.WriteLine(s);
-            }
             Console.ReadLine();
         }
     }

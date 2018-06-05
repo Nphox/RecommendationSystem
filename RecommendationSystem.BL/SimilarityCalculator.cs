@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BoardGamesExtractor;
 using RecommendationSystem.Data;
 
 namespace RecommendationSystem.BL
@@ -12,8 +13,8 @@ namespace RecommendationSystem.BL
         }
 
         public double CalculateSimilarity(
-            Game checkGame, 
-            Game templateGame, 
+            GameParams checkGame,
+            GameParams templateGame, 
             double[,] relationshipUniverses, 
             double[,] relationshipCharacters, 
             double importanceUniverse, 
@@ -23,18 +24,18 @@ namespace RecommendationSystem.BL
 
             double coefficientOfSimilarity = 0;
 
-            if (checkGame.AgeCategory > templateGame.AgeCategory)
+            if (checkGame.Age.MinAge > templateGame.Age.MinAge)
             {
                 checkAgeCategory = false;
             }
 
-            coefficientOfSimilarity += importanceUniverse * relationshipUniverses[(int) checkGame.Universe, (int) templateGame.Universe];
+            //coefficientOfSimilarity += importanceUniverse * relationshipUniverses[(int) checkGame.Universe, (int) templateGame.Universe];
 
-            coefficientOfSimilarity += importanceCharacter * relationshipCharacters[(int)checkGame.Character, (int)templateGame.Character];
+            //coefficientOfSimilarity += importanceCharacter * relationshipCharacters[(int)checkGame.Character, (int)templateGame.Character];
 
-            coefficientOfSimilarity += Relations.MaxPartOfAvgGameTimeInMinutes * Percentage(checkGame.AvgGameTimeInMinutes, templateGame.AvgGameTimeInMinutes);
+            coefficientOfSimilarity += Relations.MaxPartOfMinGameTime * Percentage(checkGame.Timing.MinTime, templateGame.Timing.MinTime);
 
-            coefficientOfSimilarity += Relations.MaxPartOfDifficulty * Percentage(checkGame.Difficulty, templateGame.Difficulty);
+            coefficientOfSimilarity += Relations.MaxPartOfComplexity * Percentage(checkGame.Complexity, templateGame.Complexity);
 
             return checkAgeCategory == false ? 0 : Math.Round(coefficientOfSimilarity, 3);
         }

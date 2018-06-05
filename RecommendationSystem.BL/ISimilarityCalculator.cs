@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BoardGamesExtractor;
 using RecommendationSystem.Data;
 
 namespace RecommendationSystem.BL
@@ -7,10 +8,15 @@ namespace RecommendationSystem.BL
     {
         double Percentage(double a, double b);
 
-        double CalculateSimilarity(Game checkGame, Game templateGame, double[,] relationshipUniverses,
-            double[,] relationshipCharacters, double importanceUniverse, double importanceCharacter);
+        double CalculateSimilarity(
+            GameParams checkGame, 
+            GameParams templateGame, 
+            double[,] relationshipUniverses,
+            double[,] relationshipCharacters, 
+            double importanceUniverse, 
+            double importanceCharacter);
 
-        void RecalculateWithUsersChoice(List<Game> games);
+        void RecalculateWithUsersChoice(List<GameParams> games);
     }
 }
 

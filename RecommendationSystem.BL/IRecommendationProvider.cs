@@ -1,10 +1,15 @@
-﻿using RecommendationSystem.Data;
+﻿using BoardGamesExtractor;
+using RecommendationSystem.Data;
 using System.Collections.Generic;
 
 namespace RecommendationSystem.BL
 {
     public interface IRecommendationProvider
     {
-        Game[] RecommendGames(List<Game> games, Game templateGame, int numberSimilarGames, bool usersChoice);
+        GameParams[] RecommendGames(
+            List<GameParams> games, 
+            GameParams templateGame, 
+            int numberSimilarGames, 
+            bool usersChoice);
     }
 }
