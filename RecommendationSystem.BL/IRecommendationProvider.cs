@@ -6,10 +6,9 @@ namespace RecommendationSystem.BL
 {
     public interface IRecommendationProvider
     {
-        GameParams[] RecommendGames(
+        List<Game> RecommendGames(
             List<GameParams> games, 
             GameParams templateGame, 
-            int numberSimilarGames, 
-            bool usersChoice);
+            int numberSimilarGames);
     }
 }

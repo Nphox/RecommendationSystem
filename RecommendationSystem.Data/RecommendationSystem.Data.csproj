@@ -46,5 +46,11 @@
     <Compile Include="Relations.cs" />
     <Compile Include="Universe.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BoardGamesExtractor-master\BoardGamesExtractor\BoardGamesExtractor.csproj">
+      <Project>{79290432-07B7-4C58-ABD6-3695BA4DC9D2}</Project>
+      <Name>BoardGamesExtractor</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

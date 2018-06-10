@@ -15,8 +15,6 @@ namespace RecommendationSystem.BL
             double[,] relationshipCharacters, 
             double importanceUniverse, 
             double importanceCharacter);
-
-        void RecalculateWithUsersChoice(List<GameParams> games);
     }
 }
 

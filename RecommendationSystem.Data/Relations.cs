@@ -4,6 +4,12 @@
     {
         public const double MaxPartOfMinGameTime = 0.1;
         public const double MaxPartOfComplexity = 0.1;
+        public const double MaxPartOfActivity = 0.1;
+
+        public const double MaxPartOfTag = 0.1;
+        public const double MaxPartOfSeries = 0.1;
+        public const double MaxPartOfThematic = 0.1;
+        public const double MaxPartOfCategories = 0.1;
 
         public static double[,] Universes = 
         {

@@ -30,34 +30,42 @@ namespace RecommendationSystem.BL
             }
 
             //coefficientOfSimilarity += importanceUniverse * relationshipUniverses[(int) checkGame.Universe, (int) templateGame.Universe];
-
             //coefficientOfSimilarity += importanceCharacter * relationshipCharacters[(int)checkGame.Character, (int)templateGame.Character];
 
             coefficientOfSimilarity += Relations.MaxPartOfMinGameTime * Percentage(checkGame.Timing.MinTime, templateGame.Timing.MinTime);
-
             coefficientOfSimilarity += Relations.MaxPartOfComplexity * Percentage(checkGame.Complexity, templateGame.Complexity);
-
-            return checkAgeCategory == false ? 0 : Math.Round(coefficientOfSimilarity, 3);
-        }
-
-        public void RecalculateWithUsersChoice(List<Game> games)
-        {
-            var maxRating = games[0].Rating;
-
-            foreach (var game in games)
+            coefficientOfSimilarity += Relations.MaxPartOfActivity * Percentage(checkGame.Activity, templateGame.Activity);
+            
+            foreach(string s in checkGame.Tags)
             {
-                if (game.Rating > maxRating)
+                if (templateGame.Tags.Contains(s))
                 {
-                    maxRating = game.Rating;
+                    coefficientOfSimilarity += Relations.MaxPartOfTag;
+                }
+            }
+            foreach (string s in checkGame.Series)
+            {
+                if (templateGame.Series.Contains(s))
+                {
+                    coefficientOfSimilarity += Relations.MaxPartOfSeries;
+                }
+            }
+            foreach (string s in checkGame.Thematic)
+            {
+                if (templateGame.Thematic.Contains(s))
+                {
+                    coefficientOfSimilarity += Relations.MaxPartOfThematic;
+                }
+            }
+            foreach (string s in checkGame.Categories)
+            {
+                if (templateGame.Categories.Contains(s))
+                {
+                    coefficientOfSimilarity += Relations.MaxPartOfCategories;
                 }
             }
 
-            double percent = maxRating / 100;
-
-            foreach (var game in games)
-            {
-                game.CoefSimilarity += game.Rating / percent / 1000;
-            }
+            return checkAgeCategory == false ? 0 : Math.Round(coefficientOfSimilarity, 3);
         }
     }
 }
