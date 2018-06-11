@@ -9,6 +9,7 @@ namespace RecommendationSystem.BL
         List<Game> RecommendGames(
             List<GameParams> games, 
             GameParams templateGame, 
-            int numberSimilarGames);
+            int numberSimilarGames,
+            Dictionary<string, int> tagDict);
     }
 }

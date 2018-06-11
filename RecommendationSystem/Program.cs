@@ -198,19 +198,22 @@ namespace RecommendationSystem
 
         static void Main(string[] args)
         {
+            Dictionary<string, int> tagDict = new Dictionary<string, int>();
+            tagDict.Add("Игры для взрослых                                 ", 1);
+            tagDict.Add("Игры для компании", 2);
+
             List<GameParams> list = new List<GameParams>(); LoadGames(list);
             List<string> allTags = new List<string>(); LoadUniqueTags(allTags, "Tags", "Tag");
             List<string> allCategories = new List<string>(); LoadUniqueTags(allCategories, "Categories", "Categories");
             List<string> allSeries = new List<string>(); LoadUniqueTags(allSeries, "Series", "Series");
             List<string> allThematic = new List<string>(); LoadUniqueTags(allThematic, "Thematic", "Thematic");
 
-
-
             IRecommendationProvider provider = new RecommendationProvider();
             Game template = CreateTemplate(allTags, allCategories, allThematic, allSeries);
             PrintGame(template);
-            List<Game> result = provider.RecommendGames(list, template.GameParams, 1);
+            List<Game> result = provider.RecommendGames(list, template.GameParams, 10, tagDict);
             PrintGames(result);
+
             Console.ReadLine();
         }
     }

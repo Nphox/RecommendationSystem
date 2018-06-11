@@ -14,7 +14,8 @@ namespace RecommendationSystem.BL
             double[,] relationshipUniverses,
             double[,] relationshipCharacters, 
             double importanceUniverse, 
-            double importanceCharacter);
+            double importanceCharacter,
+            Dictionary<string, int> tagDict);
     }
 }
 

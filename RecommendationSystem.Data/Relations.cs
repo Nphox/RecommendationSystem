@@ -1,4 +1,6 @@
-﻿namespace RecommendationSystem.Data
+﻿using System.Collections.Generic;
+
+namespace RecommendationSystem.Data
 {
     public static class Relations
     {
@@ -6,10 +8,19 @@
         public const double MaxPartOfComplexity = 0.1;
         public const double MaxPartOfActivity = 0.1;
 
-        public const double MaxPartOfTag = 0.1;
-        public const double MaxPartOfSeries = 0.1;
-        public const double MaxPartOfThematic = 0.1;
-        public const double MaxPartOfCategories = 0.1;
+        public const double MaxPartOfTag = 0.2;
+        public const double MaxPartOfSeries = 0.2;
+        public const double MaxPartOfThematic = 0.2;
+        public const double MaxPartOfCategories = 0.2;
+
+
+
+        public static double[,] Tags =
+        {
+            {  0,    0,    0},
+            {  0,   30,   15},
+            {  0,   15,   30}
+        };
 
         public static double[,] Universes = 
         {

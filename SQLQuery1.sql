@@ -1,3 +1,4 @@
-﻿select tag from Tags where title = N'Колонизаторы';
-select Categories from Categories where title = N'Колонизаторы';
-select * from Thematic;
+﻿select * from games g 
+left join tags t on g.title = t.title and t.tag = N'Игры для взрослых';
+
+select distinct tag from tags;

@@ -8,7 +8,11 @@ namespace RecommendationSystem.BL
 {
     public class RecommendationProvider : IRecommendationProvider
     {
-        public List<Game> RecommendGames(List<GameParams> games, GameParams templateGame, int numberSimilarGames)
+        public List<Game> RecommendGames(
+            List<GameParams> games, 
+            GameParams templateGame, 
+            int numberSimilarGames, 
+            Dictionary<string, int> tagDict)
         {
             ISimilarityCalculator calculator = new SimilarityCalculator();
             List<Game> boxingGames = new List<Game>();
@@ -21,7 +25,8 @@ namespace RecommendationSystem.BL
                     Relations.Universes,
                     Relations.Characters,
                     Relations.ImportanceUniverse,
-                    Relations.ImportanceCharacter);
+                    Relations.ImportanceCharacter,
+                    tagDict);
 
                 boxingGames.Add(new Game(game, coef));
             }

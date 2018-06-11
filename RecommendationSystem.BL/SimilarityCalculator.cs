@@ -18,7 +18,8 @@ namespace RecommendationSystem.BL
             double[,] relationshipUniverses, 
             double[,] relationshipCharacters, 
             double importanceUniverse, 
-            double importanceCharacter)
+            double importanceCharacter,
+            Dictionary<string, int> tagDict)
         {
             var checkAgeCategory = true;
 
@@ -41,6 +42,7 @@ namespace RecommendationSystem.BL
                 if (templateGame.Tags.Contains(s))
                 {
                     coefficientOfSimilarity += Relations.MaxPartOfTag;
+                    Console.WriteLine("--------------------------------------------------------------------contains");
                 }
             }
             foreach (string s in checkGame.Series)
@@ -64,6 +66,23 @@ namespace RecommendationSystem.BL
                     coefficientOfSimilarity += Relations.MaxPartOfCategories;
                 }
             }
+
+            foreach (string checkTag in checkGame.Tags)
+            {
+                int numRow = 0;
+                int numCol = 0;
+                foreach (string templateTag in templateGame.Tags)
+                {
+                    tagDict.TryGetValue(checkTag, out numRow);
+                    tagDict.TryGetValue(templateTag, out numCol); 
+                    coefficientOfSimilarity += Relations.Tags[numRow, numCol];
+                    if(numCol == 1 && numCol == 1)
+                    {
+                        Console.WriteLine("--------------------------------------------------------------------dict ok");
+                    }
+                }
+            }
+
 
             return checkAgeCategory == false ? 0 : Math.Round(coefficientOfSimilarity, 3);
         }
