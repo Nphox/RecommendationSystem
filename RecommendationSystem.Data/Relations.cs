@@ -13,8 +13,6 @@ namespace RecommendationSystem.Data
         public const double MaxPartOfThematic = 0.2;
         public const double MaxPartOfCategories = 0.2;
 
-
-
         public static double[,] Tags =
         {
             {  0,    0,    0},

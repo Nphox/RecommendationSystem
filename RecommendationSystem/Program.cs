@@ -9,6 +9,85 @@ namespace RecommendationSystem
 {
     class Program
     {
+        public static void AppendLine(string path, string line)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path, true))
+            {
+                file.WriteLine(line);
+            }
+        }   
+        public static void PrintToConsole(Game game)
+        {
+            Console.WriteLine("Min age: " + game.GameParams.Age.MinAge);
+            Console.WriteLine("Min time: " + game.GameParams.Timing.MinTime);
+            Console.WriteLine("Activity: " + game.GameParams.Activity);
+            Console.WriteLine("Complexity: " + game.GameParams.Complexity);
+            Console.WriteLine("Tags: " );
+            foreach(string s in game.GameParams.Tags)
+            {
+                Console.WriteLine(s);
+            }
+            Console.WriteLine();
+        }
+        public static void PrintToConsole(List<Game> list)
+        {
+            foreach (var item in list)
+            {
+                Console.WriteLine("Coef:       " + item.CoefSimilarity);
+                Console.WriteLine("Title:      " + item.GameParams.Title);
+                Console.WriteLine("MinAge:    " + item.GameParams.Age.MinAge);
+                Console.WriteLine("MinTime:    " + item.GameParams.Timing.MinTime);
+                Console.WriteLine("Complexity: " + item.GameParams.Complexity);
+                Console.WriteLine("Activity:   " + item.GameParams.Activity);
+                foreach (string s in item.GameParams.Tags)
+                {
+                    Console.WriteLine(s);
+                }
+                Console.WriteLine();
+            }
+        }
+        public static void PrintToFile(string path, Game game)
+        {
+            AppendLine(path, "Coef:       " + game.CoefSimilarity);
+            AppendLine(path, "Min age:    " + game.GameParams.Age.MinAge);
+            AppendLine(path, "Min time:   " + game.GameParams.Timing.MinTime);
+            AppendLine(path, "Activity:   " + game.GameParams.Activity);
+            AppendLine(path, "Complexity: " + game.GameParams.Complexity);
+            AppendLine(path, "Tags: ");
+            foreach (string s in game.GameParams.Tags)
+            {
+                AppendLine(path, "      " + s);
+            }
+            AppendLine(path, "\n");
+        }
+        public static void PrintToFile(string path, List<Game> list)
+        {
+            AppendLine(path, "-------------------------RESULTS-------------------------------");
+            foreach (var game in list)
+            {
+                PrintToFile(path, game);
+            }
+        }
+        public static void PrintGameParams(List<GameParams> list)
+        {
+            foreach (GameParams g in list)
+            {
+                Console.WriteLine(g.Title + " : " + g.Tags.Count + " tags");
+                Console.WriteLine(g.Title + " : " + g.Categories.Count + " categories");
+                Console.WriteLine(g.Title + " : " + g.Thematic.Count + " thematic");
+                Console.WriteLine(g.Title + " : " + g.Series.Count + " series");
+            }
+            Console.WriteLine("Count of games: " + list.Count);
+        }
+        public static void PrintListString(List<string> list)
+        {
+            foreach (string s in list)
+            {
+                Console.WriteLine(s);
+            }
+            Console.WriteLine("Count tags: " + list.Count);
+        }
+
         public static void LoadGames(List<GameParams> list)
         {
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Projects\RecommendationSystem\RecommendationSystem\Database1.mdf;Integrated Security=True; MultipleActiveResultSets=True";
@@ -36,7 +115,7 @@ namespace RecommendationSystem
                     #region load tags
                     SqlDataReader tagsReader = null;
                     string valueAttribute = Convert.ToString(list[i].Title);
-                    
+
                     int index = valueAttribute.IndexOf("'");
                     if (index > 0)
                     {
@@ -45,13 +124,13 @@ namespace RecommendationSystem
                         if (index > 0)
                         {
                             valueAttribute = valueAttribute.Insert(index, "'");
-                        }                         
+                        }
                     }
 
                     string query = "SELECT Tag FROM [Tags] where Title = " + "N" + "'" + valueAttribute + "'";
                     SqlCommand tagsCmd = new SqlCommand(query, sqlConnection);
                     tagsReader = tagsCmd.ExecuteReader();
-                    
+
                     while (tagsReader.Read())
                     {
                         list[i].Tags.Add(Convert.ToString(tagsReader["Tag"]));
@@ -102,18 +181,6 @@ namespace RecommendationSystem
             }
             sqlConnection.Close();
         }
-        public static void PrintGame(Game game)
-        {
-            Console.WriteLine("Min age: " + game.GameParams.Age.MinAge);
-            Console.WriteLine("Min time: " + game.GameParams.Timing.MinTime);
-            Console.WriteLine("Activity: " + game.GameParams.Activity);
-            Console.WriteLine("Complexity: " + game.GameParams.Complexity);
-            Console.WriteLine("Tags: " );
-            foreach(string s in game.GameParams.Tags)
-            {
-                Console.WriteLine(s);
-            }
-        }
         public static void LoadUniqueTags(List<string> conteiner, string nameTable, string nameAttribute)
         {
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Projects\RecommendationSystem\RecommendationSystem\Database1.mdf;Integrated Security=True; MultipleActiveResultSets=True";
@@ -136,49 +203,19 @@ namespace RecommendationSystem
             }
             sqlConnection.Close();
         }
-        public static void PrintGameParams(List<GameParams> list)
-        {
-            foreach (GameParams g in list)
-            {
-                Console.WriteLine(g.Title + " : " + g.Tags.Count + " tags");
-                Console.WriteLine(g.Title + " : " + g.Categories.Count + " categories");
-                Console.WriteLine(g.Title + " : " + g.Thematic.Count + " thematic");
-                Console.WriteLine(g.Title + " : " + g.Series.Count + " series");
-            }
-            Console.WriteLine("Count of games: " + list.Count);
-        }
-        public static void PrintGames(List<Game> list)
-        {
-            foreach (var item in list)
-            {
-                Console.WriteLine("Coef:       " + item.CoefSimilarity);
-                Console.WriteLine("Title:      " + item.GameParams.Title);
-                Console.WriteLine("MinAge:    " + item.GameParams.Age.MinAge);
-                Console.WriteLine("MinTime:    " + item.GameParams.Timing.MinTime);
-                Console.WriteLine("Complexity: " + item.GameParams.Complexity);
-                Console.WriteLine("Activity:   " + item.GameParams.Activity);
-                foreach (string s in item.GameParams.Tags)
-                {
-                    Console.WriteLine(s);
-                }
-                Console.WriteLine();
-            }
-        }
-        public static void PrintListString(List<string> list)
-        {
-            foreach(string s in list)
-            {
-                Console.WriteLine(s);
-            }
-            Console.WriteLine("Count tags: " + list.Count);
-        }
         public static Game CreateTemplate(List<string> allTags, List<string> allCategories, List<string> allThematic, List<string> allSeries)
         {
             Game template = new Game();
-            Console.Write("Min age: "); template.GameParams.Age.MinAge = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Min time: "); template.GameParams.Timing.MinTime = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Activity: "); template.GameParams.Activity = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Complexity: "); template.GameParams.Complexity = Convert.ToInt32(Console.ReadLine());
+            template.CoefSimilarity = 0;
+            Console.Write("Min age: ");
+            template.GameParams.Age.MinAge = Convert.ToInt32(Console.ReadLine());       
+            Console.Write("Min time: ");
+            template.GameParams.Timing.MinTime = Convert.ToInt32(Console.ReadLine());           
+            Console.Write("Activity: ");
+            template.GameParams.Activity = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Complexity: ");
+            template.GameParams.Complexity = Convert.ToInt32(Console.ReadLine());            
+
             string[] arrayTags = allTags.ToArray();
             for(int i = 0; i < arrayTags.Length; i++)
             {
@@ -198,10 +235,12 @@ namespace RecommendationSystem
 
         static void Main(string[] args)
         {
+            string pathToLog = @"C:\Projects\RecommendationSystem\log.txt";
+
             Dictionary<string, int> tagDict = new Dictionary<string, int>();
             tagDict.Add("Игры для взрослых                                 ", 1);
             tagDict.Add("Игры для компании", 2);
-
+                    
             List<GameParams> list = new List<GameParams>(); LoadGames(list);
             List<string> allTags = new List<string>(); LoadUniqueTags(allTags, "Tags", "Tag");
             List<string> allCategories = new List<string>(); LoadUniqueTags(allCategories, "Categories", "Categories");
@@ -210,9 +249,14 @@ namespace RecommendationSystem
 
             IRecommendationProvider provider = new RecommendationProvider();
             Game template = CreateTemplate(allTags, allCategories, allThematic, allSeries);
-            PrintGame(template);
+
+            PrintToConsole(template);
+            PrintToFile(pathToLog, template);
+
             List<Game> result = provider.RecommendGames(list, template.GameParams, 10, tagDict);
-            PrintGames(result);
+            PrintToConsole(result);
+            PrintToFile(pathToLog, result);
+
 
             Console.ReadLine();
         }
